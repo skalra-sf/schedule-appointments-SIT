@@ -1,44 +1,62 @@
 <head></head>
 <body>
     <script src="https://aaa-ace-pilot--sitsb01.sandbox.my.site.com/prospects/lightning/lightning.out.js"></script>
-<!--     <script>
-        $Lightning.use("ScheduleAppointment:lightningOutGuest",    // name of the Lightning app
-            function() {                  
-                $Lightning.createComponent(
-                   "lightning:flow", // top-level component of your app
-                    { },                  // attributes to set on the component when created
-                    "lightningLocator",   // the DOM location to insert the component
-                    function(cmp) {
-                        console.log('Hi from callback');// callback when component is created and active on the page
-                        cmp.startFlow('Copy_of_Inbound_New_Guest_Appointment_Travel');
-                    }
-                );
-            }, 'https://ace-aaa--travelsb.sandbox.my.site.com/prospects'  // Community endpoint
-        );
-    </script> -->
+
 <script>
 
+    var urlParams = new URLSearchParams(window.location.search);
+    var websiteSource = urlParams.get('websiteSource');
+    var trafficSource = urlParams.get('trafficSource');
+    var trafficSourceCategory = urlParams.get('trafficSourceCategory');
+    var TSTTripURL = urlParams.get('TSTTripURL');
+    var tripCanvasURL = urlParams.get('tripCanvasURL');
+    
     $Lightning.use("runtime_appointmentbooking:lightningOutGuest",
         function() {                  // Callback once framework and app load
             $Lightning.createComponent(
                 "lightning:flow",    // top-level component of your app
-                { 
-                    },    // attributes to set on the component when created
+                {},    // attributes to set on the component when created
                 "lexcontainer",    // the DOM location to insert the component
-                function(component) {            // API name of the Flow
+                function(component) {           
                     console.log('Hi from callback');
-                    component.startFlow("Inbound_New_Guest_Appointment_Travel");
+
+                     var inputVariables = [
+                        {
+                            name: "WebsiteSource",
+                            type: "String",
+                            value: websiteSource
+                        },
+                        {
+                            name: "TrafficSource",
+                            type: "String",
+                            value: trafficSource
+                        },
+                        {
+                            name: "TrafficSourceCategory",
+                            type: "String",
+                            value: trafficSourceCategory
+                        },
+                        {
+                            name: "TripCanvasURL",
+                            type: "String",
+                            value: tripCanvasURL
+                        },
+                        {
+                            name: "TSTUrl",
+                            type: "String",
+                            value: TSTTripURL
+                        }
+                    ] 
+
+                    component.startFlow("Inbound_New_Guest_Appointment_Travel", /*inputVariables*/);
                 }
             );
         },    'https://aaa-ace-pilot--sitsb01.sandbox.my.site.com/prospects',  // Site endpoint
-              'session-id'
+                'session-id'
     );
 </script>
 <div id="lexcontainer">
-<!--   <p>Test file1 - Lightning Component mentioned in the Script is invoked from here</p>
-<p>try 6</p> -->
-<!-- <p> For Travel Sb</p> -->
 
-<p>SIT</p>
+<p>SIT DEMO</p>
 </div>
 </body>
